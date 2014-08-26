@@ -19,8 +19,17 @@ public class JavaOverview{
 		// Compute the sum of all odd numbers between 50 and 100
 		// Print the result in the form:
 		// "The sum is: XXX" where XXX is the resulting sum
+
+		int sum = 0;
+		for(int i = 51; i < 100; i+=2)
+			sum += i;
+		System.out.println("The sum is: " + sum);
 		
 		System.out.println("---   End Exercise 1 ---");
+	}
+
+	private static String longestFirst(String s1, String s2) {
+		return (s1.length() >= s2.length() ? (s1 + s2) : (s2 + s1));
 	}
 	
 	private static void ex2() {
@@ -33,14 +42,25 @@ public class JavaOverview{
 		// put the first string first.
 		
 		// Then uncomment the lines below to test your code
-		//System.out.println(longestFirst("abc", "12"));
-		//System.out.println(longestFirst("ab", "123"));
-		//System.out.println(longestFirst("abc", "123"));
-		//System.out.println(longestFirst("abc", ""));
-		//System.out.println(longestFirst("", "12"));
+		System.out.println(longestFirst("abc", "12"));
+		System.out.println(longestFirst("ab", "123"));
+		System.out.println(longestFirst("abc", "123"));
+		System.out.println(longestFirst("abc", ""));
+		System.out.println(longestFirst("", "12"));
+
 		System.out.println("---   End Exercise 2 ---");
 	}
 	
+	private static void shiftLeftTwo(int[] arr) {
+		int[] temp = new int[] { arr[0], arr[1] };
+
+		for(int i = 0; i < arr.length - 2; i++)
+			arr[i] = arr[i+2];
+
+		arr[arr.length-2] = temp[0];
+		arr[arr.length-1] = temp[1];
+	}
+
 	private static void ex3() {
 		System.out.println("--- Begin Exercise 3 ---");
 		// Exercise 3: array
@@ -51,16 +71,41 @@ public class JavaOverview{
 		// two (and wraps the left most values around).
 		// Print the results in the form:
 		// The array contains: 3, 4, 5, 6, 7, 8, 10, 1, 2
+
+		int[] arr = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+		shiftLeftTwo(arr);
+
+		System.out.print("The array contains: ");
+
+		// Print array elements
+		for(int i = 0; i < arr.length; i++) {
+			if(i > 0) System.out.print(", ");
+			System.out.print(arr[i]);
+		}
+
+		System.out.println(); // Newline
 		
 		System.out.println("---   End Exercise 3 ---");
 	}
 	
 	private static int fib3recursive(int n) {
-		return -1;
+		if(n < 3) return 1;
+		else return (fib3recursive(n-1) + fib3recursive(n-2) + fib3recursive(n-3));
 	}
 	
 	private static int fib3dynamic(int n) {
-		return -1;
+		int[] fibs = new int[] { 1, 1, 1 };
+
+		for(int i = 2; i < n; i++)
+		{
+			int e = fibs[0] + fibs[1] + fibs[2];
+
+			fibs[0] = fibs[1];
+			fibs[1] = fibs[2];
+			fibs[2] = e;
+		}
+
+		return fibs[2];
 	}
 	
 	private static void printFib3(int n) {
@@ -99,7 +144,22 @@ public class JavaOverview{
 		// per line.		
 		int min=0;
 		int max=0;
-		
+
+		try {
+			Scanner scanner = new Scanner(new File("numbers.txt"));
+
+			while(scanner.hasNextInt()) {
+				int val = scanner.nextInt();
+
+				if(min > val) min = val;
+				if(max < val) max = val;
+			}
+
+			scanner.close();
+		} catch(FileNotFoundException e) {
+			// Do nothing
+		}
+
 		System.out.println("Minimum value: " + min);
 		System.out.println("Maximum value: " + max);
 		
@@ -116,23 +176,47 @@ public class JavaOverview{
 		//  - provides a method drive(double time) which sets a new position
 		//      of the car to be the old position plus speed*time
 		//  - provides a method getPosition() to access the current position
+
 		class Car {
-			// implement this
+
+			protected double position = 0d;
+			protected double speed = 0d;
+
+			public Car() {
+				this(0d);
+			}
+
+			public Car(double position) {
+				this.position = position;
+			}
+
+			public void setSpeed(double speed) {
+				this.speed = speed;
+			}
+
+			public void drive(double time) {
+				this.position += (time * this.speed);
+			}
+
+			public double getPosition() {
+				return this.position;
+			}
 		}
+
 		// uncomment the code below to test your class
-//		Car car1 = new Car(0.0);
-//		car1.setSpeed(50.0);
-//		car1.drive(2);
-//		car1.setSpeed(25.0);
-//		car1.drive(1);
-//		System.out.println("The position of car1 is "+ car1.getPosition());
-//		
-//		Car car2 = new Car(0.0);
-//		car2.setSpeed(30.0);
-//		car2.drive(.5);
-//		car2.setSpeed(-25.0);
-//		car2.drive(1.2);
-//		System.out.println("The position of car2 is "+ car2.getPosition());
+		Car car1 = new Car(0.0);
+		car1.setSpeed(50.0);
+		car1.drive(2);
+		car1.setSpeed(25.0);
+		car1.drive(1);
+		System.out.println("The position of car1 is "+ car1.getPosition());
+
+		Car car2 = new Car(0.0);
+		car2.setSpeed(30.0);
+		car2.drive(.5);
+		car2.setSpeed(-25.0);
+		car2.drive(1.2);
+		System.out.println("The position of car2 is "+ car2.getPosition());
 		
 		System.out.println("---   End Exercise 6 ---");
 	}
