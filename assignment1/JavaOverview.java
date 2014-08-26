@@ -145,8 +145,11 @@ public class JavaOverview{
 		int min=0;
 		int max=0;
 
+		String filename = "numbers.txt";
+		Scanner scanner = null;
+
 		try {
-			Scanner scanner = new Scanner(new File("numbers.txt"));
+			scanner = new Scanner(new File(filename));
 
 			while(scanner.hasNextInt()) {
 				int val = scanner.nextInt();
@@ -155,14 +158,16 @@ public class JavaOverview{
 				if(max < val) max = val;
 			}
 
-			scanner.close();
+			System.out.println("Minimum value: " + min);
+			System.out.println("Maximum value: " + max);
+
 		} catch(FileNotFoundException e) {
-			// Do nothing
+			// Robust enough?
+			System.out.println(filename + " not found");
+		} finally {
+			if(scanner != null) scanner.close();
 		}
 
-		System.out.println("Minimum value: " + min);
-		System.out.println("Maximum value: " + max);
-		
 		System.out.println("---   End Exercise 5 ---");
 	}
 	private static void ex6() {
