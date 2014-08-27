@@ -9,7 +9,7 @@
 
 import scala.io.Source
 
-object ScalaOverview{
+object ScalaOverview {
 
   def main(args: Array[String]) {
     ex1()
@@ -27,8 +27,22 @@ object ScalaOverview{
 		// Print the result in the form:
 		// "The sum is: XXX" where XXX is the resulting sum
 		
+    var sum = 0
+    for(i <- 51 to 100 by +2) {
+      sum += i
+    }
+    println("The sum is: " + sum)
+
 		println("---   End Exercise 1 ---")
 	}
+
+  def longestFirst(s1: String, s2: String): String = {
+    if (s1.length >= s2.length) {
+      s1 + s2
+    } else {
+      s2 + s1
+    }
+  }
     
   def ex2() = {
 		println("--- Begin Exercise 2 ---")
@@ -40,11 +54,12 @@ object ScalaOverview{
 		// put the first string first.
 		
 		// Then uncomment the lines below to test your code
-		//println(longestFirst("abc", "12"))
-		//println(longestFirst("ab", "123"))
-		//println(longestFirst("abc", "123"))
-		//println(longestFirst("abc", ""))
-		//println(longestFirst("", "12"))
+		println(longestFirst("abc", "12"))
+		println(longestFirst("ab", "123"))
+		println(longestFirst("abc", "123"))
+		println(longestFirst("abc", ""))
+		println(longestFirst("", "12"))
+
 		println("---   End Exercise 2 ---")
   }
   
