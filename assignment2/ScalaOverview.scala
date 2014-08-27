@@ -62,6 +62,10 @@ object ScalaOverview {
 
 		println("---   End Exercise 2 ---")
   }
+
+  def shiftLeftTwo(arr: Array[Int]) = {
+    
+  }
   
 	def ex3() = {
 		System.out.println("--- Begin Exercise 3 ---")
@@ -123,7 +127,13 @@ object ScalaOverview {
 		
 		var min=0
 		var max=0
-	
+
+    scala.io.Source.fromFile("numbers.txt").getLines().foreach({ s: String =>
+      val i = s.toInt
+      if(min > i) min = i
+      if(max < i) max = i
+    })
+
 		println("Minimum value: " + min)
 		println("Maximum value: " + max)
 		
