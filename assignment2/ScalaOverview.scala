@@ -64,7 +64,13 @@ object ScalaOverview {
   }
 
   def shiftLeftTwo(arr: Array[Int]) = {
-    
+    var temp = Array[Int](arr(0), arr(1))
+
+    for(i <- 0 until (arr.length - 2))
+      arr(i) = arr(i+2)
+
+    arr(arr.length-2) = temp(0)
+    arr(arr.length-1) = temp(1)
   }
   
 	def ex3() = {
@@ -77,19 +83,44 @@ object ScalaOverview {
 		// two (and wraps the left most values around).
 		// Print the results in the form:
 		// The array contains: 3, 4, 5, 6, 7, 8, 10, 1, 2
+
+    var oneToTen = Array[Int](1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    shiftLeftTwo(oneToTen)
+
+    print("The array contains: ")
+
+    oneToTen.zipWithIndex.foreach({ case(i: Int, index: Int) =>
+      if(index > 0) print(", ")
+      print(i)
+    })
+
+    println()
 		
 		println("---   End Exercise 3 ---")
 	}
 	
-  def fib3recursive(n:Int):Int = {
-    return -1
+  def fib3recursive(n: Int): Int = {
+    n match {
+      case i if i < 3 => 1
+      case _ => fib3recursive(n-1) + fib3recursive(n-2) + fib3recursive(n-3)
+    }
   }
 
-  def fib3dynamic(n:Int):Int = {
-    return -1
+  def fib3dynamic(n: Int): Int = {
+    var fibs = Array[Int](1, 1, 1)
+
+    for(i <- 2 until n) {
+      val e = fibs(0) + fibs(1) + fibs(2)
+
+      fibs(0) = fibs(1)
+      fibs(1) = fibs(2)
+      fibs(2) = e
+    }
+
+    fibs(2)
   }
 
-  def printFib3(n:Int) = {
+  def printFib3(n: Int) = {
 	  print("The "+n+"-th element in the sequence is ")
 	  print(fib3recursive(n))
 	  print("(recursive), ")
@@ -151,23 +182,29 @@ object ScalaOverview {
 		//  - provides a method drive(double time) which sets a new position
 		//      of the car to be the old position plus speed*time
 		//  - provides a method getPosition() to access the current position
-		class Car(intialPosition:Double) {
-		  // implement this
-		}			
-// uncomment this to test your code
-//		var car1 = new Car(0.0)
-//		car1.setSpeed(50.0)
-//		car1.drive(2)
-//		car1.setSpeed(25.0)
-//		car1.drive(1)
-//		println("The position of car1 is "+ car1.getPosition())
-//		
-//		var car2 = new Car(0.0)
-//		car2.setSpeed(30.0)
-//		car2.drive(.5)
-//		car2.setSpeed(-25.0)
-//		car2.drive(1.2)
-//		println("The position of car2 is "+ car2.getPosition())
+		class Car(initialPosition: Double) {
+      var position: Double = initialPosition
+      var speed: Double = 0d
+
+      def setSpeed(s: Double) = speed = s
+      def drive(t: Double) = position += (t * speed)
+      def getPosition() = position
+		}
+
+    // uncomment this to test your code
+		var car1 = new Car(0.0)
+		car1.setSpeed(50.0)
+		car1.drive(2)
+		car1.setSpeed(25.0)
+		car1.drive(1)
+		println("The position of car1 is "+ car1.getPosition())
+
+		var car2 = new Car(0.0)
+		car2.setSpeed(30.0)
+		car2.drive(.5)
+		car2.setSpeed(-25.0)
+		car2.drive(1.2)
+		println("The position of car2 is "+ car2.getPosition())
 		
 		println("---   End Exercise 6 ---")
 	}
