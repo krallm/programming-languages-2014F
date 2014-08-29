@@ -27,10 +27,16 @@ object ScalaOverview {
     // Print the result in the form:
     // "The sum is: XXX" where XXX is the resulting sum
 
-    var sum = 0
-    for(i <- 51 to 100 by +2) {
-      sum += i
-    }
+    // For-loop way
+    //var sum = 0
+    //for(i <- 51 to 100 by +2) {
+    //  sum += i
+    //}
+    //println("The sum is: " + sum)
+
+    // Using to, from, foreach
+    var sum = 0;
+    51.to(99).by(2).foreach(x => sum += x)
     println("The sum is: " + sum)
 
     println("---   End Exercise 1 ---")
