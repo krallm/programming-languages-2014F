@@ -6,7 +6,7 @@
    * Is your numbers.txt file in the appropriate place?
    */  
 
-
+import java.io.FileNotFoundException
 import scala.io.Source
 
 object ScalaOverview {
@@ -164,15 +164,20 @@ object ScalaOverview {
 
     var min=0
     var max=0
+    var filename = "numbers.txt"
 
-    scala.io.Source.fromFile("numbers.txt").getLines().foreach({ s: String =>
-      val i = s.toInt
-      if(min > i) min = i
-      if(max < i) max = i
-    })
+    try {
+      scala.io.Source.fromFile(filename).getLines().foreach({ s: String =>
+        val i = s.toInt
+        if(min > i) min = i
+        if(max < i) max = i
+      })
 
-    println("Minimum value: " + min)
-    println("Maximum value: " + max)
+      println("Minimum value: " + min)
+      println("Maximum value: " + max)
+    } catch {
+      case fnfe: FileNotFoundException => println(filename + " not found")
+    }
 
     println("---   End Exercise 5 ---")
   }  
