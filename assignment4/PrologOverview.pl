@@ -7,6 +7,9 @@
 % Note: there are no iterative loops in Prolog, use
 %       a recursive approach
 
+problem1Sum(Sum) :- findall(X, (between(50, 99, X), (X mod 2) =:= 1), Xs), sumlist(Xs, Sum).
+?- write('The sum is: '), problem1Sum(Sum), write(Sum), nl.
+
 ?- write('---   End Exercise 1 ---'),nl.
 
 ?- write('--- Begin Exercise 2 ---'),nl.
