@@ -20,14 +20,17 @@ problem1Sum(Sum) :- findall(X, (between(50, 99, X), (X mod 2) =:= 1), Xs), sumli
 % coming first. If the strings have the same length
 % put the first string first.
 
-%longestFirst(S1, S2, X) :- % ... <Implement this>
+longestFirst(S1, S2, X) :-
+	string_length(S1, L1),
+	string_length(S2, L2),
+	(L1 >= L2 -> string_concat(S1, S2, X) ; string_concat(S2, S1, X)).
 
 % Then uncomment the lines below to test your code
-%?- longestFirst('abc', '12', X), write(X),nl.
-%?- longestFirst('ab', '123', X), write(X),nl.
-%?- longestFirst('abc', '123', X), write(X),nl.
-%?- longestFirst('abc', '', X), write(X),nl.
-%?- longestFirst('', '12', X), write(X),nl.
+?- longestFirst('abc', '12', X), write(X),nl.
+?- longestFirst('ab', '123', X), write(X),nl.
+?- longestFirst('abc', '123', X), write(X),nl.
+?- longestFirst('abc', '', X), write(X),nl.
+?- longestFirst('', '12', X), write(X),nl.
 
 ?- write('---   End Exercise 2 ---'),nl.
 
