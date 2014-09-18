@@ -136,6 +136,13 @@ inquire(In,Out):-
       Out = In ;
       inquire([Data|In],Out) ) . 
 
+% Assuming that min_list and max_list were the specified built in functions
+minMaxFromFile(File, Min, Max) :-
+	fileToList(File, L),
+	min_list(L, Min), max_list(L, Max).
+
+?- minMaxFromFile('numbersProlog.txt', Min, Max), write('Min: '), write(Min), write(', Max: '), write(Max), nl.
+
 ?- write('---   End Exercise 5 ---'),nl.
 
 ?- write('--- Begin Exercise 6 ---'),nl.
