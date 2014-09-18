@@ -72,9 +72,28 @@ shiftLeftTwo([E1|[E2|L]], Z) :- append(L, [E1,E2], Z).
 %                   where element of the sequence
 %                   are stored in a list and re-used
 
-fib3recursive(N, F) :- F is 1. % <implement this>
-	
-fib3dynamic(N, F) :- F is 1. % <implement this>
+fib3recursive(N, F) :-
+	(
+		% If less than 3, set F to 1
+		N < 3 -> F is 1 ;
+
+		% If greater than or equal to 3, compute recursively
+		fib3recursive(N-1, F1),
+		fib3recursive(N-2, F2),
+		fib3recursive(N-3, F3),
+		F is F1+F2+F3
+	).
+
+fib3dynamic(0, 1).
+fib3dynamic(1, 1).
+fib3dynamic(2, 1).
+fib3dynamic(N, F) :- fib3dynamic(N, [1,1,1], F).
+fib3dynamic(2, L, F) :- last(L, F).
+fib3dynamic(N, [L1|[L2|[L3|_]]], F) :-
+	E is L1+L2+L3,
+	M is N-1,
+	append([L2,L3], [E], L),
+	fib3dynamic(M, L, F).
 
 printFib3(N) :- 
 	write('The '), 
