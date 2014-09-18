@@ -74,8 +74,8 @@ shiftLeftTwo([E1|[E2|L]], Z) :- append(L, [E1,E2], Z).
 
 fib3recursive(N, F) :-
 	(
-		% If less than 3, set F to 1
-		N < 3 -> F is 1 ;
+		% If less than 4, set F to 1
+		N < 4 -> F is 1 ;
 
 		% If greater than or equal to 3, compute recursively
 		fib3recursive(N-1, F1),
@@ -84,11 +84,12 @@ fib3recursive(N, F) :-
 		F is F1+F2+F3
 	).
 
-fib3dynamic(0, 1).
+fib3dynamic(0, 0).
 fib3dynamic(1, 1).
 fib3dynamic(2, 1).
+fib3dynamic(3, 1).
 fib3dynamic(N, F) :- fib3dynamic(N, [1,1,1], F).
-fib3dynamic(2, L, F) :- last(L, F).
+fib3dynamic(3, L, F) :- last(L, F).
 fib3dynamic(N, [L1|[L2|[L3|_]]], F) :-
 	E is L1+L2+L3,
 	M is N-1,
