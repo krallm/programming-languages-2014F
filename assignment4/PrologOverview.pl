@@ -46,6 +46,15 @@ longestFirst(S1, S2, X) :-
 % Print the results in the form:
 % The list contains: [3, 4, 5, 6, 7, 8, 10, 1, 2]
 
+% Use findall and between to create list from 1 to 10
+oneToTenList(L) :- findall(X, between(1, 10, X), L).
+
+% Just take the first two elements and stick (append) them to the end
+shiftLeftTwo([E1|[E2|L]], Z) :- append(L, [E1,E2], Z).
+
+?- oneToTenList(L10), shiftLeftTwo(L10, L), write(L), nl.
+
+% write('The list contains: '), oneToTenList(L), shiftLeftTwo(L, L), write(L), nl.
 
 ?- write('---   End Exercise 3 ---'),nl.
 
