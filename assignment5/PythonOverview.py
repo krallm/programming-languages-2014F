@@ -5,10 +5,13 @@ print("--- Begin Exercise 1 ---");
 # Print the result in the form:
 # "The sum is: XXX" where XXX is the resulting sum
 
-sum = 0
-for i in range(0, 25):
-    sum += (51 + (i*2))
-print("The sum is: ", sum)
+def calcSum():
+    sum = 0
+    for i in range(0, 25):
+        sum += (51 + (i*2))
+    return sum
+
+print("The sum is: ", calcSum())
 
 print("---   End Exercise 1 ---");
 
@@ -40,8 +43,15 @@ print("--- Begin Exercise 3 ---");
 # shifts the elements of the list to the left by
 # two (and wraps the left most values around).
 # Print the results in the form:
-# The array contains: [3, 4, 5, 6, 7, 8, 10, 1, 2]
-        
+# The array contains: [3, 4, 5, 6, 7, 8, 9, 10, 1, 2]
+oneToTen = list(range(1,11))
+
+def shiftLeftTwo(arr):
+    arr.extend([arr.pop(0), arr.pop(0)])
+    return arr
+
+print("The array contains: ", shiftLeftTwo(oneToTen))
+
 print("---   End Exercise 3 ---");
 
 print("--- Begin Exercise 4 ---");
@@ -58,10 +68,15 @@ print("--- Begin Exercise 4 ---");
 #                   are stored in an array and re-used
 
 def fib3recursive(n):
-    return -1;
+    if(n < 4): return 1
+    else: return fib3recursive(n-1) + fib3recursive(n-2) + fib3recursive(n-3)
 
 def fib3dynamic(n):
-    return -1;
+    fibs = [1, 1, 1]
+    for i in range(3, n):
+        fibs.append(sum(fibs))
+        fibs.pop(0)
+    return fibs[2]
 
 def printFib3(n):
     print("The "+str(n)+"-th element in the sequence is "+str(fib3recursive(n))+"(recursive), "+str(fib3dynamic(n))+"(dynamic).");
@@ -79,7 +94,20 @@ print("--- Begin Exercise 5 ---");
 # numbers.txt and prints out the minimum and maximum
 # values in the file. The file contains one integer
 # per line.
-        
+
+min = max = None
+with open('numbers.txt') as file:
+    for line in file:
+        n = int(line)
+
+        if(min is None or max is None):
+            min = max = n
+        else:
+            if(n < min): min = n
+            elif(n > max): max = n
+
+print("Min: " + str(min) + ", Max: " + str(max))
+
 print("---   End Exercise 5 ---");
 
 print("--- Begin Exercise 6 ---");
@@ -93,19 +121,34 @@ print("--- Begin Exercise 6 ---");
 #      of the car to be the old position plus speed*time
 #  - provides a method getPosition() to access the current position
 
+class Car:
+
+    def __init__(self, position):
+        self.position = position
+        self.speed = 0.0
+
+    def setSpeed(self, speed):
+        self.speed = speed
+
+    def drive(self, time):
+        self.position += (self.speed * time)
+
+    def getPosition(self):
+        return self.position
+
 # uncomment these lines to test your code            
-#car1 = Car(0.0);
-#car1.setSpeed(50.0);
-#car1.drive(2);
-#car1.setSpeed(25.0);
-#car1.drive(1);
-#print("The position of car1 is "+ str(car1.getPosition()));
+car1 = Car(0.0);
+car1.setSpeed(50.0);
+car1.drive(2);
+car1.setSpeed(25.0);
+car1.drive(1);
+print("The position of car1 is "+ str(car1.getPosition()));
         
-#car2 = Car(0.0);
-#car2.setSpeed(30.0);
-#car2.drive(.5);
-#car2.setSpeed(-25.0);
-#car2.drive(1.2);
-#print("The position of car2 is "+ str(car2.getPosition()));
+car2 = Car(0.0);
+car2.setSpeed(30.0);
+car2.drive(.5);
+car2.setSpeed(-25.0);
+car2.drive(1.2);
+print("The position of car2 is "+ str(car2.getPosition()));
 print("---   End Exercise 6 ---");
 
