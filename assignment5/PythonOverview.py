@@ -5,6 +5,11 @@ print("--- Begin Exercise 1 ---");
 # Print the result in the form:
 # "The sum is: XXX" where XXX is the resulting sum
 
+sum = 0
+for i in range(0, 25):
+    sum += (51 + (i*2))
+print("The sum is: ", sum)
+
 print("---   End Exercise 1 ---");
 
 print("--- Begin Exercise 2 ---");
@@ -15,13 +20,16 @@ print("--- Begin Exercise 2 ---");
 # coming first. If the strings have the same length
 # put the first string first.
 
+def longestFirst(s1, s2):
+    if(len(s1) >= len(s2)): return s1+s2
+    else: return s2+s1
 
 # Then uncomment the lines below to test your code
-#print(longestFirst("abc", "12"));
-#print(longestFirst("ab", "123"));
-#print(longestFirst("abc", "123"));
-#print(longestFirst("abc", ""));
-#print(longestFirst("", "12"));
+print(longestFirst("abc", "12"));
+print(longestFirst("ab", "123"));
+print(longestFirst("abc", "123"));
+print(longestFirst("abc", ""));
+print(longestFirst("", "12"));
 print("---   End Exercise 2 ---");
   
 print("--- Begin Exercise 3 ---");
